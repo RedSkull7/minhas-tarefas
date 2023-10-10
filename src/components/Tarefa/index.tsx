@@ -5,7 +5,7 @@ import * as S from './styles'
 
 import { remover, editar, alteraStatus } from '../../store/reducers/tarefas'
 import TarefaClass from '../../models/Tarefa'
-import { BotaoSalvar } from '../../styles'
+import { Botao, BotaoSalvar } from '../../styles'
 import * as enums from '../../utils/enums/Tarefa'
 
 type Props = TarefaClass
@@ -50,7 +50,10 @@ const Tarefa = ({
           checked={status === enums.Status.CONCLUIDA}
           onChange={alteraStatusTarefa}
         />
-        <S.Titulo>{titulo}</S.Titulo>
+        <S.Titulo>
+          {estaEditando && <em>Editando:</em>}
+          {titulo}
+        </S.Titulo>
       </label>
       <S.Tag parametro="prioridade" prioridade={prioridade}>
         {prioridade}
@@ -88,7 +91,7 @@ const Tarefa = ({
           </>
         ) : (
           <>
-            <S.Botao onClick={() => setEstaEditando(true)}>Editar</S.Botao>
+            <Botao onClick={() => setEstaEditando(true)}>Editar</Botao>
             <S.BotaoCancelarRemover onClick={() => dispatch(remover(id))}>
               Remover
             </S.BotaoCancelarRemover>
